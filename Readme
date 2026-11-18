@@ -1,0 +1,186 @@
+# Elysium Retail WowPacketParser (WPP)
+
+**A community-maintained World of Warcraft Retail packet parser based on TrinityCore's WowPacketParser.**
+
+Elysium Retail WPP builds upon TrinityCore's original WowPacketParser with additional client-version recognition, protocol research, and provisional opcode discoveries.
+
+The goal is to maintain reliable Retail packet analysis while researching newly introduced client builds and preserving compatibility with existing packet formats.
+
+## Client Support
+
+| World of Warcraft Client | Status | Notes |
+|---|---|---|
+| Retail 12.1.5.70783 | ✅ Supported | Verified against an authenticated PKT capture |
+| Retail 12.1.5.70961 | 🧪 Experimental | Build recognized; gameplay opcode compatibility not yet verified |
+| Earlier Retail builds | ✅ Upstream support | Supported where existing TrinityCore parser modules and opcode tables provide coverage |
+
+**Important:** Experimental support means that the parser recognizes the client build and selects a compatible parser module. It does not guarantee that all packets, opcodes, or game systems decode correctly.
+
+## What's New in Elysium Retail WPP?
+
+### Retail 12.1.5.70961 — Experimental
+
+Added preliminary support for Retail build `70961`, including:
+
+- Client build recognition.
+- Client-version registration and detection.
+- Parser module selection.
+- Update-field dictionary selection.
+- Provisional use of the existing 12.1.5 opcode table.
+- Preservation of existing Retail functionality.
+
+Five handshake opcodes have been verified for this build. Full gameplay compatibility requires additional authenticated captures and testing.
+
+### Retail 12.1.5.70783 — Additional Opcode Research
+
+Two previously unmapped server opcodes were identified through authenticated Retail packet recordings.
+
+| Numeric Opcode | Direction | Suspected Subsystem | Status |
+|---|---|---|---|
+| `0x00450059` | SMSG | Housing / Account Collections | Provisional |
+| `0x00450226` | SMSG | Battle Pay / Catalog Entitlements | Provisional |
+
+**Housing / Account Collections**
+
+`UNKNOWN_SMSG_450059`
+
+- Observed 6 times across 6 sessions.
+- Fixed 30-byte payload.
+- Associated with account collection initialization traffic.
+
+**Battle Pay / Catalog Entitlements**
+
+`UNKNOWN_SMSG_450226`
+
+- Observed 102 times across 6 sessions.
+- Variable-length payloads ranging from 55 to 66 bytes.
+- Associated with product and entitlement synchronization.
+
+Both mappings are restricted to build `70783`.
+
+Their official names and payload structures remain unverified. WPP preserves the raw packet payloads rather than assigning speculative data structures.
+
+## Verification
+
+Our independently published Retail WPP has undergone build, dependency, and output comparison checks.
+
+**Build validation**
+
+- .NET 10 Release build successful.
+- 0 build errors and warnings.
+- 102 automated tests passed.
+- 6 existing tests skipped.
+- 23 parser modules included in the published distribution.
+- Standalone executable smoke tests successful.
+
+**Packet output comparison**
+
+A verified Retail 70783 PKT was processed using both the original TrinityCore WPP and the separated Elysium Retail WPP.
+
+The resulting SQL outputs contained:
+
+- 428 executable SQL statements.
+- 41 database tables.
+- 8,018 value rows.
+- Identical packet-derived SQL data.
+
+The only SQL difference was the automatically generated parsing-date comment.
+
+The accompanying parsed-text outputs also matched after excluding their parsing-date metadata.
+
+These results validate that particular capture, not every supported client build or packet type.
+
+## Requirements
+
+- Windows or another platform supported by the upstream project and its dependencies.
+- .NET 10 runtime.
+- Appropriate World of Warcraft packet captures.
+- Optional DBC/DB2 data for features requiring game data.
+
+Some database-related functionality may require additional configuration.
+
+## Installation
+
+1. Open the repository's **Releases** section.
+2. Download the available Retail WPP release archive.
+3. Extract the complete archive into a folder.
+4. Keep the `Parsers` and `runtimes` directories alongside the executable.
+5. Install the .NET 10 runtime if it is not already installed.
+6. Run `WowPacketParser.exe` using the original WPP command-line interface.
+
+Do not extract only the executable. WPP dynamically loads parser modules from the `Parsers` directory.
+
+## Building From Source
+
+For source distributions containing the complete project:
+
+**Requirements**
+
+- .NET 10 SDK.
+- NuGet package restore access.
+
+From the project root:
+
+```powershell
+dotnet restore WowPacketParser.slnx
+dotnet build WowPacketParser.slnx -c Release --no-restore
+```
+
+The Release distribution is generated under:
+
+```text
+WowPacketParser/bin/Release/
+```
+
+The complete Release output, including the `Parsers` directory, must be preserved.
+
+The upstream project uses the Release build output as its distribution artifact. A plain `dotnet publish` may omit dynamically loaded parser modules and is not recommended without additional packaging configuration.
+
+## Opcode Research Policy
+
+Elysium Retail WPP distinguishes verified protocol information from experimental discoveries.
+
+- Numeric opcode values must be supported by capture evidence.
+- Unknown official message names remain clearly marked as provisional.
+- New mappings are restricted to verified client builds where appropriate.
+- Raw packet payloads are preserved when structures are unknown.
+- Existing opcode mappings are not replaced without supporting evidence.
+- Experimental client recognition is not presented as fully verified parsing support.
+
+This approach helps prevent incorrect mappings from affecting existing supported builds.
+
+## Project Scope
+
+This repository focuses on **Retail World of Warcraft**.
+
+Other client families, including PTR, Classic, Burning Crusade Classic, Mists of Pandaria Classic, and WoW Forever, are maintained as separate WPP projects.
+
+The Retail parser is developed and published independently to avoid mixing client-specific changes and dependencies.
+
+## Disclaimer
+
+Elysium Retail WowPacketParser is an independent community project based on TrinityCore's WowPacketParser.
+
+It is not affiliated with, endorsed by, or officially supported by Blizzard Entertainment or TrinityCore.
+
+World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc.
+
+## Credits
+
+**TrinityCore** — Original WowPacketParser architecture, parser modules, and foundational protocol support.
+
+**Elysium Project** — Retail version updates, independent packaging, experimental client support, and additional opcode research.
+
+We appreciate the work of the TrinityCore developers and the wider World of Warcraft emulation and protocol research community.
+
+## License
+
+This project is derived from TrinityCore's WowPacketParser and retains the applicable upstream licensing and attribution requirements.
+
+Refer to the repository's `COPYING` file for the complete license terms.
+
+---
+
+**Elysium Retail WowPacketParser**
+
+*Preserving proven packet compatibility while researching the next generation of World of Warcraft clients.*
