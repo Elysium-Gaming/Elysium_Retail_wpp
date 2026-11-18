@@ -1,362 +1,267 @@
 # Elysium WowPacketParser (WPP)
 
-**Independent World of Warcraft packet parsers for Retail, PTR, Classic Era, Burning Crusade Classic, Mists of Pandaria Classic, and WoW Forever.**
+**One unified WowPacketParser. Six independent client distributions. Multiple generations of World of Warcraft.**
 
-Elysium WowPacketParser is a community-maintained collection of World of Warcraft packet analysis tools based on [TrinityCore's WowPacketParser](https://github.com/TrinityCore/WowPacketParser), with additional research, client-version recognition, experimental opcode discoveries, and independently maintained distributions.
+Elysium WowPacketParser is a community-maintained collection of World of Warcraft packet analysis tools based on [TrinityCore's WowPacketParser](https://github.com/TrinityCore/WowPacketParser), with additional client-version research, experimental opcode discoveries, and independently maintained releases.
 
-Rather than maintaining one shared parser installation for every World of Warcraft client, **Elysium WPP separates each client family into its own independently built, tested, and published version.**
+Elysium WPP offers two ways to work with World of Warcraft packets:
 
-This allows us to research and update individual clients without affecting the others.
+- **Elysium WPP All-in-One** — A unified parser supporting multiple World of Warcraft client families in one installation.
+- **Individual Client WPPs** — Six independently maintained distributions for Retail, PTR, Classic Era, Burning Crusade Classic, Mists of Pandaria Classic, and WoW Forever.
 
-Our goal is to preserve reliable packet analysis, maintain compatibility with established World of Warcraft protocol formats, and expand support for newer client versions as authenticated packet evidence becomes available.
+Our goal is to preserve reliable packet analysis while expanding compatibility with newer World of Warcraft clients through authenticated protocol research.
+
+---
+
+## Official Releases
+
+### Elysium WPP All-in-One v1.0.0
+
+**Release:** `wpp.v1.0.0.rar`
+
+The first official release of **Elysium WowPacketParser All-in-One**, combining TrinityCore-based client support with Elysium's additional Retail opcode research and experimental build recognition.
+
+**Included capabilities:**
+
+- Automatic client-build detection.
+- Retail, PTR, Classic Era, BCC, and MoP Classic parser infrastructure.
+- Experimental Retail 12.1.5.70961 recognition.
+- Additional provisional Retail 70783 opcode mappings.
+- 23 parser modules.
+- Original WPP packet decoding and SQL generation.
+- Original command-line interface and configuration functionality.
+- .NET 10 Release build.
+- 118 automated tests passed, 6 skipped, 0 failed.
+
+**WoW Forever is not yet integrated into All-in-One.** Use the separate Forever WPP distribution.
+
+### Individual Client Releases
+
+Each supported client family has its own independently built and maintained WPP distribution.
+
+| Distribution | Release / Naming Convention | Availability |
+|---|---|---|
+| All-in-One | `wpp.v1.0.0.rar` | Published |
+| Retail | `retail_<build>_wpp` | Published |
+| PTR | `ptr_12.1.7.70892_wpp` | Published |
+| Classic Era | `classic_<build>_wpp` | Built and tested locally |
+| Burning Crusade Classic | `bcc_<build>_wpp` | Built and tested locally |
+| MoP Classic | `mopc_<build>_wpp` | Built and tested locally |
+| Forever | `forever_<build>_wpp` | Built and tested locally |
+
+Names containing `<build>` are naming patterns, not specific published release identifiers.
+
+**Download the release matching your intended client, or use All-in-One when you want multiple supported client families in one installation.**
+
+A release name identifying a client build does not, by itself, establish complete protocol compatibility with that build.
 
 ---
 
 ## Supported World of Warcraft Clients
 
-Elysium WPP is organized into six independent client projects.
-
-| Client | Project | Status |
+| Client | All-in-One | Individual WPP |
 |---|---|---|
-| World of Warcraft Retail | Retail WPP | Available |
-| World of Warcraft PTR | PTR WPP | Available |
-| World of Warcraft Classic Era | Classic WPP | Built and tested |
-| Burning Crusade Classic | BCC WPP | Built and tested |
-| Mists of Pandaria Classic | MoP Classic WPP | Built and tested |
-| World of Warcraft Forever | Forever WPP | Built and tested |
+| Retail | Included | Available |
+| PTR | Included through upstream version dispatch | Available |
+| Classic Era | Included | Available locally |
+| Burning Crusade Classic | Included | Available locally |
+| Mists of Pandaria Classic | Included, known limitations | Available locally |
+| World of Warcraft Forever | Not yet integrated | Available locally |
 
-All six clients have independent source directories, build environments, parser distributions, and publishing workflows.
+All-in-One uses a unified source tree and the original WPP client-version dispatch architecture.
 
-**Important:** An independently built WPP distribution does not guarantee complete compatibility with every build of its designated client. Actual support depends on available opcode mappings, parser modules, and verified packet structures.
+Individual WPP distributions retain separate source directories, build environments, parser modules, and publishing workflows.
 
-### Retail WPP
+### Retail
 
 | Client Build | Status | Notes |
 |---|---|---|
-| 12.1.5.70783 | Supported baseline | Verified SQL and parsed-text output against the original WPP for a matching PKT |
-| 12.1.5.70961 | Experimental | Build recognized; complete gameplay opcode compatibility unverified |
-| Earlier Retail builds | Upstream support | Coverage depends on the existing TrinityCore parser modules and opcode tables |
+| 12.1.5.70783 | Supported baseline | Verified SQL and parsed-text comparison for an authenticated PKT |
+| 12.1.5.70961 | Experimental | Build recognized, gameplay mappings not fully verified |
+| Earlier Retail builds | Upstream support | Depends on existing parser modules and opcode tables |
 
-### PTR WPP
+### PTR
 
-Our PTR distribution is maintained separately from Retail.
+**Published PTR release:** `ptr_12.1.7.70892_wpp`
 
-**First published PTR release:**
+The independent PTR WPP contains the original TrinityCore parser architecture, packet decoding, opcode mappings, version detection, and SQL generation.
 
-`ptr_12.1.7.70892_wpp`
+Build `12.1.5.70961` registration and dispatch have been verified.
 
-The PTR distribution includes the existing upstream packet analysis framework, client-version detection, opcode lookup, parser modules, and SQL generation capabilities.
+**PTR 12.1.7.70892 parsing compatibility has not yet been established through an authenticated capture.**
 
-The published executable has been independently built and verified, including recognition of build `12.1.5.70961` through the existing upstream protocol tables.
+### Classic Era
 
-**PTR 12.1.7.70892 compatibility remains unverified.** The release name identifies the intended PTR client target; it does not establish that all packets from that build can currently be decoded.
+The inherited upstream implementation contains registered client builds spanning 1.13.2 through 1.15.8, plus 1.60.1 beta-family registrations.
 
-As additional authenticated PTR captures become available, compatibility can be evaluated and new version-specific mappings introduced where supported by evidence.
+### Burning Crusade Classic
 
-### Classic Era WPP
+The inherited upstream implementation contains registered client builds spanning 2.5.1 through 2.5.6, including `2.5.6.70577`.
 
-A separate WowPacketParser distribution for Classic Era and its associated client builds.
+### Mists of Pandaria Classic
 
-The inherited upstream source contains registrations covering Classic Era versions from 1.13.2 through 1.15.8, along with 1.60.1 beta-family registrations.
+Includes the upstream 5.5.0–5.5.3 client registrations and relevant parser modules.
 
-Actual parser compatibility depends on the relevant version-specific modules and opcode mappings.
+Known limitations include the `5.5.3.65703` version-dispatch omission and an upstream expansion-classification issue affecting some 5.5.x builds.
 
-### Burning Crusade Classic WPP
+### WoW Forever
 
-A dedicated distribution for Burning Crusade Classic.
+The separate Forever distribution is based on the Devorvh WowPacketParser fork and includes its additional Forever-specific parser module.
 
-The inherited upstream source includes registered 2.5.1 through 2.5.6 builds, including `2.5.6.70577`.
+Its audited source contains 18 registered builds spanning 69876 through 70938.
 
-The existing version dispatch and parser modules remain based on TrinityCore's implementation.
-
-### Mists of Pandaria Classic WPP
-
-A separate distribution for Mists of Pandaria Classic.
-
-The inherited upstream source includes registered builds from 5.5.0 through 5.5.3.
-
-Original Mists of Pandaria client versions are distinguished from the newer Mists of Pandaria Classic client family.
-
-**Known limitation:** Build `5.5.3.65703` has an identified upstream version-dispatch omission. Its complete parsing compatibility has not been established.
-
-### WoW Forever WPP
-
-A dedicated World of Warcraft Forever parser based on the separate Devorvh WowPacketParser fork.
-
-This distribution includes an additional Forever-specific parser module and maintains its own build and release process.
-
-The audited source contains 18 registered builds spanning 69876 through 70938.
-
-Forever remains independent from the TrinityCore-based client projects to prevent unintended conflicts between their version-specific implementations.
+**Forever remains standalone while compatibility work for the unified parser continues.**
 
 ---
 
-## Separate Client Releases
+## Elysium Retail Opcode Research
 
-**Each World of Warcraft client receives its own release.**
+Elysium Retail WPP includes additional evidence-backed opcode discoveries for Retail 12.1.5.70783.
 
-Releases are named according to the client and target build, rather than combining every client into a single download.
-
-Examples:
-
-| Client | Release naming example |
-|---|---|
-| Retail | `retail_12.1.5.70783_wpp` |
-| PTR | `ptr_12.1.7.70892_wpp` |
-| Classic Era | `classic_<build>_wpp` |
-| Burning Crusade Classic | `bcc_<build>_wpp` |
-| MoP Classic | `mopc_<build>_wpp` |
-| Forever | `forever_<build>_wpp` |
-
-The PTR release name above reflects the published release. Other names illustrate the naming convention and do not imply that a corresponding GitHub release has already been uploaded.
-
-**Always download the WPP release intended for the World of Warcraft client you are researching.**
-
-Even though some distributions retain shared upstream parser modules, their development, testing, and publishing are kept separate.
-
----
-
-## What's New in Elysium Retail WPP?
-
-### Retail 12.1.5.70961 — Experimental
-
-Elysium Retail WPP includes preliminary registration of client build `70961`.
-
-Changes include:
-
-- Client build enumeration.
-- Client-version recognition and date registration.
-- Parser module selection.
-- Existing 12.1.5 opcode-table selection.
-- Update-field dictionary selection.
-- Preservation of previous Retail client registrations.
-
-The build uses the existing `V12_1_5_70340` opcode table and `V12_0_0_65390` parser module.
-
-Five handshake opcodes have been verified for this build.
-
-**Full gameplay parsing compatibility for 70961 remains experimental.**
-
-Additional authenticated captures are needed before new gameplay opcode mappings or packet structures can be established.
-
-### Retail 12.1.5.70783 — Additional Opcode Research
-
-Our research identified two previously unmapped server opcodes through authenticated Retail packet recordings.
+Two previously unmapped server opcodes were recovered from authenticated packet recordings.
 
 | Numeric Opcode | Direction | Suspected Subsystem | Status |
 |---|---|---|---|
 | `0x00450059` | SMSG | Housing / Account Collections | Provisional |
 | `0x00450226` | SMSG | Battle Pay / Catalog Entitlements | Provisional |
 
-Both mappings are restricted to Retail build `70783`.
+Both provisional mappings are restricted to build 70783.
 
-Their official symbolic names and complete payload structures remain unverified.
+Their official names and complete payload structures remain unverified. The parser preserves raw payloads without introducing speculative field decoders.
 
-#### Housing / Account Collections
+### Housing / Account Collections
 
-**Provisional identifier:** `UNKNOWN_SMSG_450059`
+**Identifier:** `UNKNOWN_SMSG_450059`
 
-Our original six-session research found:
+The initial six-session investigation found six occurrences of an identical 30-byte payload.
 
-- 6 occurrences across 6 sessions.
-- Exactly one occurrence per session.
-- A fixed 30-byte payload.
-- A consistent position near account collection synchronization traffic.
-
-Expanded historical research subsequently verified:
+Expanded historical research identified:
 
 - 148 unique occurrences.
-- Two observed payload sizes: 26 and 30 bytes.
-- Build-correlated payload differences across historical captures.
+- Two payload lengths: 26 and 30 bytes.
+- Build-correlated payload differences.
+- Consistent association with account collection synchronization.
 
-The 26-byte variation appeared in older observed builds, while the authenticated 70783 research showed the 30-byte form.
+The 26-byte form was observed in earlier builds, while the authenticated 70783 observations used the 30-byte form.
 
-The exact field structure is not yet verified.
+No complete field schema has been established.
 
-Elysium WPP preserves the raw payload instead of inventing a packet schema.
+### Battle Pay / Catalog Entitlements
 
-#### Battle Pay / Catalog Entitlements
+**Identifier:** `UNKNOWN_SMSG_450226`
 
-**Provisional identifier:** `UNKNOWN_SMSG_450226`
+The original research found 102 occurrences across six sessions.
 
-Our original six-session research found:
-
-- 102 occurrences across 6 sessions.
-- Exactly 17 occurrences per session.
-- 9 distinct payloads.
-- Payload lengths of 55, 62, 65, and 66 bytes.
-
-Expanded historical research subsequently verified:
+Expanded research established:
 
 - 1,608 unique occurrences.
 - Nine stable payload patterns.
-- Product and catalog-related strings.
+- Four observed payload-length classes.
+- Catalog and product-related strings.
 
-Observed labels include:
+Observed labels include Bananas, 250 Tender, 500 Tender, and 1000 Tender.
 
-- Bananas
-- 250 Tender
-- 500 Tender
-- 1000 Tender
-
-These observations establish a strong relationship with catalog or entitlement data.
-
-They do **not** prove that the message directly updates a player's Trader's Tender balance.
-
-The existing provisional opcode mapping retains the raw data without assigning unverified gameplay semantics.
+These indicate catalog or entitlement information. They do not establish a direct Trader's Tender balance update.
 
 ---
 
-## Retail Opcode Coverage Research
+## Retail 70783 Opcode Coverage
 
-A separate historical packet audit examined:
+Historical packet research examined 181 distinct PKT containers containing 12,039,612 packet records.
 
-- 181 distinct PKT containers.
-- 12,039,612 packet records.
-- 44 Retail 70783 containers.
-- 627,102 packet records from those 70783 containers.
+For Retail 70783, 44 containers contributed 627,102 records.
 
-The expanded 70783 study identified 567 distinct direction-aware opcode values.
+The expanded study found:
 
 | Classification | Count |
 |---|---:|
-| Observed opcode values | 567 |
+| Distinct observed direction-aware opcodes | 567 |
 | Named upstream mappings | 565 |
-| Additional provisional mappings | 2 |
-| Unresolved numeric mappings in the audited set | 0 |
+| Provisional Elysium mappings | 2 |
+| Unresolved numeric mappings in the audited inventory | 0 |
 
-An earlier six-capture study identified 402 distinct opcodes.
+The additional 165 opcodes beyond an earlier 402-value inventory came from a larger capture population. They were already recognized by the existing opcode tables.
 
-The additional 165 values came from a larger capture population and were already present in the existing upstream mappings.
-
-**Opcode lookup coverage does not mean complete payload decoding.**
-
-Some recognized messages may not have a complete parser implementation or may still require version-specific verification.
-
-Our research distinguishes numeric recognition, verified names, actual payload decoding, and SQL generation.
+**Opcode recognition does not guarantee complete packet decoding.** Individual packet structures and version-specific handlers may still need verification.
 
 ---
 
-## Verification and Testing
+## Build Verification
 
-Elysium WPP distributions are independently built and verified before publication.
+Elysium WPP distributions are independently compiled, tested, and verified.
 
-### Retail WPP
+| Distribution | Tests Passed | Skipped | Parser Modules |
+|---|---:|---:|---:|
+| All-in-One | 118 | 6 | 23 |
+| Retail | 110 | 6 | 23 |
+| PTR | 98 | 6 | 23 |
+| Classic Era | 97 | 6 | 23 |
+| BCC | 97 | 6 | 23 |
+| MoP Classic | 97 | 6 | 23 |
+| Forever | 98 | 12 | 24 |
 
-Latest reported development validation:
+All-in-One completed its Release build with zero warnings and zero errors.
 
-- .NET 10 Release build successful.
-- 0 build errors.
-- 0 build warnings.
-- 110 automated tests passed.
-- 6 pre-existing tests skipped.
+Its verified local publication contained:
+
+- 108 distribution files.
 - 23 parser modules.
-- Standalone startup verification.
-- Historical opcode regression tests.
+- 121 configuration keys.
+- Verified Release-output hashes.
+- Successful standalone startup testing.
 
-The previously published Retail distribution was preserved during the historical research audit. Development test results should not automatically be interpreted as changes included in an earlier release.
+The independent Forever distribution retains its additional parser module and separate source architecture.
 
-### PTR WPP
-
-The first PTR publication completed:
-
-- .NET 10 Release build successful.
-- 0 build errors.
-- 0 build warnings.
-- 98 automated tests passed.
-- 6 pre-existing tests skipped.
-- 23 parser modules.
-- 107 published application files.
-- Complete ZIP extraction and SHA-256 verification.
-- Independent executable startup verification.
-
-The PTR archive contains the complete published application and required upstream license.
-
-### Other Client Builds
-
-The Classic, BCC, MoP Classic, and Forever distributions have each been independently restored, built, tested, and published locally.
-
-The TrinityCore-based distributions contain 23 parser modules each.
-
-Forever contains 24 parser modules, including its additional Forever-specific module.
-
-All six client distributions were checked for unintended dependencies on another client's source or publishing directory.
+These results establish build and automated-test status. They do not prove full packet compatibility across all registered client builds.
 
 ---
 
-## Packet Output Comparison
+## Retail SQL Compatibility Verification
 
-A verified Retail 12.1.5.70783 PKT was processed using the original TrinityCore WPP and the independent Elysium Retail WPP.
+A verified Retail 12.1.5.70783 PKT was processed using both the original TrinityCore WPP and Elysium Retail WPP.
 
-Both executions used byte-identical source capture data.
+The resulting SQL files contained:
 
-The resulting SQL contained:
-
-- 428 executable SQL statements.
+- 428 executable statements.
 - 41 database tables.
 - 8,018 value rows.
-- Identical packet-derived SQL data.
+- Identical packet-derived SQL content.
 
-The only SQL difference was the automatically generated parsing-date comment.
+Only the generated parsing-date comment differed.
 
-After excluding that metadata line, the SQL outputs were byte-identical.
+Removing that metadata line made the SQL files byte-identical.
 
-The corresponding parsed-text outputs also matched after excluding their parsing-date metadata.
+The accompanying parsed-text outputs also matched after excluding their parsing-date metadata.
 
-This demonstrates equivalent output for that particular capture and configuration, not universal compatibility with every supported client version.
+This verifies equivalent output for the tested capture and configuration.
 
-### Historical SQL Research
-
-An additional historical audit examined apparent differences in Northshire starting-zone SQL output.
-
-The differing files were associated with build 68974, and evidence of manual editing was identified.
-
-No confirmed WPP SQL generator defect was established.
-
-Consequently, no SQL generator modification was made based on those differences.
-
----
-
-## Requirements
-
-For the current Windows release distributions:
-
-- Windows x64.
-- .NET 10 runtime.
-- A supported World of Warcraft packet capture.
-- Optional DBC/DB2 data for features requiring game data.
-- Appropriate configuration for database-dependent functionality.
-
-Some advanced features may require additional resources or configuration.
-
-The Windows distributions are framework-dependent and are not standalone .NET runtime bundles.
+Additional historical SQL investigations found no confirmed generator defect requiring modification. Outputs showing evidence of manual editing were not used to justify parser changes.
 
 ---
 
 ## Installation
 
-1. Open the repository's **Releases** section.
-2. Select the release matching your intended World of Warcraft client.
-3. Download the complete release archive.
-4. Extract the archive into its own directory.
-5. Install the .NET 10 runtime if required.
-6. Keep the `Parsers` and `runtimes` directories alongside the application.
-7. Run `WowPacketParser.exe` using its original command-line interface.
+### All-in-One
 
-**Do not extract only `WowPacketParser.exe`.**
+1. Open the GitHub **Releases** section.
+2. Download `wpp.v1.0.0.rar`.
+3. Extract the entire archive.
+4. Install the .NET 10 runtime if necessary.
+5. Keep the `Parsers` and `runtimes` directories alongside the executable.
+6. Run `WowPacketParser.exe` using the original WPP command-line interface.
 
-WPP dynamically loads parser assemblies from the `Parsers` directory.
+### Individual Client Versions
 
-The complete distribution must remain together for proper operation.
+Download the appropriate client-specific release and extract it into its own directory.
 
-### Multiple WPP Installations
+Each installation must retain its complete dependencies and parser modules.
 
-Different Elysium WPP clients can be installed side by side.
-
-For example:
+Example:
 
 ```text
 Elysium_WPP/
+├── All-in-One/
+│   └── WowPacketParser.exe
 ├── Retail/
 │   └── WowPacketParser.exe
 ├── PTR/
@@ -371,49 +276,60 @@ Elysium_WPP/
     └── WowPacketParser.exe
 ```
 
-Each directory should contain the complete files from its corresponding release archive, including its own parser modules and dependencies.
+Each directory shown represents a separate complete installation, not just an executable.
 
-This keeps client installations separate and makes it possible to update one without replacing another.
+**Do not extract only `WowPacketParser.exe`.** The application dynamically loads parser modules from its `Parsers` directory.
+
+---
+
+## Requirements
+
+- Windows x64 for the current Windows release packages.
+- .NET 10 runtime.
+- Compatible World of Warcraft packet captures.
+- Optional DBC/DB2 resources for features requiring game data.
+- Appropriate database configuration for database-dependent functionality.
+
+The published Windows applications are framework-dependent and do not bundle the complete .NET runtime.
 
 ---
 
 ## Building From Source
 
-For source distributions containing the complete project, the existing upstream build system is preserved.
+The original TrinityCore build architecture is preserved.
 
 ### Requirements
 
 - .NET 10 SDK.
 - NuGet package restore access.
-- The complete WPP source and project files.
+- Complete WPP source and project files.
 
-From the selected client's project root:
+Build the selected project:
 
 ```powershell
 dotnet restore WowPacketParser.slnx
 dotnet build WowPacketParser.slnx -c Release --no-restore
 ```
 
-The compiled Release distribution is generated under:
+The complete Release distribution is generated under:
 
 ```text
 WowPacketParser/bin/Release/
 ```
 
-**Preserve the entire Release output.**
+Preserve the full distribution, including the `Parsers` and `runtimes` directories.
 
-The upstream WPP architecture dynamically loads additional parser modules.
+A plain `dotnet publish` may omit dynamically loaded parser modules unless packaging is configured accordingly.
 
-A plain `dotnet publish` may omit these modules unless additional packaging configuration is supplied.
+Elysium WPP uses a verified release-distribution workflow based on the original Release output.
 
-Elysium WPP uses a verified distribution process based on the complete Release build output.
+### Development Workspace
 
-### Independent Development
-
-The local development workspace separates each client into its own directory:
+Our development workspace is organized as follows:
 
 ```text
 wpp/
+├── Elysium_wpp_master/
 ├── retail_wpp/
 ├── ptr_wpp/
 ├── Classic_wpp/
@@ -422,94 +338,97 @@ wpp/
 └── Forever_wpp/
 ```
 
-The primary TrinityCore source and the separate Devorvh Forever source are retained as references.
+`Elysium_wpp_master` is the independent all-in-one project.
 
-Client-specific modifications remain in their corresponding working trees.
+The other six directories contain the individual client projects.
+
+The original TrinityCore and Devorvh source trees are maintained separately as upstream references.
 
 ---
 
-## Opcode Research and Compatibility Policy
+## Unified Parser Development
 
-Elysium WPP uses evidence-based protocol research.
+The unified Elysium WPP is based primarily on TrinityCore's existing multi-client architecture.
 
-Our development rules include:
+It incorporates verified Elysium additions without changing the application's original command-line interface, SQL generator, output formats, configuration system, or parser-module loading model.
+
+### Included Improvements
+
+- Retail 12.1.5.70961 experimental build recognition.
+- Two provisional Retail 70783 SMSG mappings.
+- Build-specific opcode isolation.
+- PTR registration regression coverage.
+- Classic, BCC, and MoP client-version dispatch coverage.
+- Additional automated verification.
+
+### Forever Integration
+
+Forever integration is a separate ongoing development effort.
+
+The Devorvh fork includes changes to shared storage, packet handling, opcode/version behavior, and SQL generation.
+
+Directly merging the fork could affect existing Retail and Classic-family behavior.
+
+For that reason, the unified v1.0.0 distribution does not contain the additional Forever-specific parser module.
+
+The separate Forever WPP remains available for development and testing.
+
+### Known Limitations
+
+- Retail 70961 gameplay parsing is experimental.
+- PTR 12.1.7.70892 compatibility has not been verified by capture parsing.
+- MoP Classic 5.5.3.65703 has an unresolved version-dispatch issue.
+- Some MoP 5.5.x builds may be incorrectly classified by upstream expansion-detection logic.
+- Forever is not integrated into All-in-One.
+- Provisional opcode identities and field schemas remain under research.
+
+---
+
+## Opcode Research Policy
+
+Elysium WPP follows evidence-based protocol development.
+
+We aim to:
 
 - Preserve verified numeric opcode values.
-- Record the correct packet direction.
-- Identify the exact client build associated with observations.
-- Keep unofficial message names clearly marked as provisional.
-- Avoid inventing packet structures without authenticated evidence.
-- Preserve complete raw payloads for unidentified messages.
-- Restrict build-specific mappings to appropriate client versions.
-- Avoid replacing existing mappings without supporting evidence.
-- Distinguish build recognition from actual packet compatibility.
-- Preserve existing SQL output behavior unless a defect is demonstrated.
+- Record packet directions and exact client builds.
+- Keep unverified symbolic names provisional.
+- Preserve raw payloads where schemas are unknown.
+- Avoid speculative field decoders.
+- Keep build-specific opcode mappings isolated.
+- Preserve existing SQL generation unless a defect is proven.
+- Distinguish client recognition from complete parser compatibility.
+- Verify changes through regression tests and authenticated capture evidence.
 
-We do not consider an unknown packet to be a confirmed TrinityCore defect without sufficient evidence.
-
-Similarly, a successfully compiled parser is not automatically considered fully compatible with a new client build.
-
-Research findings are incorporated only when they can be justified and regression-tested.
-
----
-
-## Project Organization and Maintenance
-
-The six Elysium WPP distributions are maintained independently.
-
-This structure provides several advantages:
-
-**Client isolation**
-
-Changes for Retail do not automatically change Classic, PTR, BCC, MoP Classic, or Forever.
-
-**Independent updates**
-
-Each client can receive the upstream improvements relevant to its version family.
-
-**Separate publishing**
-
-Each client has its own Release distribution and GitHub release naming convention.
-
-**Controlled compatibility research**
-
-Experimental opcode mappings can be limited to the specific builds for which evidence exists.
-
-**Upstream preservation**
-
-TrinityCore's original parser architecture remains the foundation of the TrinityCore-based distributions, while the Devorvh Forever implementation remains separate.
+A packet that is unidentified or unhandled is not automatically evidence of an upstream defect.
 
 ---
 
 ## Upstream Updates
 
-Elysium WPP periodically compares its client-specific projects against TrinityCore's upstream WowPacketParser.
+Elysium WPP regularly reviews relevant TrinityCore changes and selectively incorporates compatible improvements.
 
-Relevant upstream changes are evaluated individually rather than merged blindly.
+The November 18, 2026 TrinityCore update registered Retail build 12.1.5.70961.
 
-For example, the November 18, 2026 upstream update added recognition for Retail build `12.1.5.70961`.
+Our Retail and unified projects already included equivalent recognition, alongside Elysium-specific provisional opcode research.
 
-Our Retail WPP had already incorporated equivalent build recognition alongside its additional provisional opcode research.
+The same registration was integrated into PTR and independently verified.
 
-The same upstream registration was subsequently integrated into our PTR source and independently verified.
-
-Other client distributions were left unchanged when the update was unrelated to their designated client families.
-
-Our goal is to maintain compatibility with upstream improvements without losing Elysium-specific research or introducing unintended cross-client changes.
+Each client project is updated independently to prevent unrelated upstream changes from affecting other distributions.
 
 ---
 
 ## Community and Support
 
-Join the official **ElysiumCore Discord community** for project announcements, discussions, feedback, development updates, and support.
+Join the official **ElysiumCore Discord community** for announcements, development updates, research discussions, feedback, and support.
 
 **Discord:** https://discord.gg/nn4yZD8un
 
-Community feedback and reproducible packet analysis findings are welcome.
+Community contributions and reproducible packet research findings are welcome.
 
-When reporting a parsing issue, useful information includes the client build, numeric opcode, packet direction, expected behavior, actual output, and relevant diagnostic evidence.
+When reporting an issue, please include the client build, packet direction, numeric opcode, expected behavior, and relevant diagnostic information whenever available.
 
-Please avoid publicly sharing account credentials, authentication secrets, or other sensitive information captured during gameplay.
+Do not share account credentials, authentication secrets, or other sensitive captured information.
 
 ---
 
@@ -517,19 +436,19 @@ Please avoid publicly sharing account credentials, authentication secrets, or ot
 
 ### TrinityCore
 
-Original WowPacketParser architecture, packet parsers, opcode definitions, client-version support, and foundational protocol research.
+Original WowPacketParser architecture, packet parsers, opcode mappings, SQL generation, client-version support, and foundational protocol research.
 
-**Repository:** https://github.com/TrinityCore/WowPacketParser
+**Source:** https://github.com/TrinityCore/WowPacketParser
 
 ### Devorvh
 
-Forever-specific WowPacketParser fork and its additional Forever parser implementation.
+Independent Forever-specific WowPacketParser fork and its additional Forever parser implementation.
 
 ### Elysium Project
 
-Independent client separation, builds and publishing, additional Retail opcode discoveries, experimental client-version research, regression testing, and historical packet analysis.
+Independent client separation, unified parser integration, build and release packaging, additional Retail opcode discoveries, experimental client support, and regression research.
 
-We appreciate the contributions of TrinityCore, Devorvh, and the wider World of Warcraft emulation and protocol research community.
+We appreciate the ongoing work of the TrinityCore developers, Devorvh, and the wider World of Warcraft emulation and protocol research community.
 
 ---
 
@@ -549,12 +468,12 @@ This software is intended for authorized packet analysis, protocol research, and
 
 Elysium WowPacketParser is derived from upstream WowPacketParser projects and retains applicable upstream licensing and attribution requirements.
 
-Refer to the included `COPYING` file and source notices for the complete applicable terms.
+Refer to the included `COPYING` file and source notices for the applicable terms.
 
-Redistributions must preserve required copyright, license, and source-availability obligations.
+Redistribution of modified GPL-covered binaries requires compliance with the relevant licensing and corresponding-source obligations.
 
 ---
 
 **Elysium WowPacketParser (WPP)**
 
-*Six independent client distributions. One goal: accurate World of Warcraft packet research across client generations.*
+*One unified parser. Six independent client distributions. Expanding World of Warcraft protocol research across generations.*
