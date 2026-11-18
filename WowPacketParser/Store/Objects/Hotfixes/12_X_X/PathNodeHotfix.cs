@@ -1,0 +1,45 @@
+using WowPacketParser.Misc;
+using WowPacketParser.SQL;
+
+namespace WowPacketParser.Store.Objects
+{
+    [Hotfix]
+    [DBTableName("path_node")]
+    public sealed record PathNodeHotfix1200: IDataModel
+    {
+        [DBFieldName("ID", true)]
+        public uint? ID;
+
+        [DBFieldName("PathID")]
+        public ushort? PathID;
+
+        [DBFieldName("Sequence")]
+        public short? Sequence;
+
+        [DBFieldName("LocationID")]
+        public int? LocationID;
+
+        [DBFieldName("VerifiedBuild")]
+        public int? VerifiedBuild = ClientVersion.BuildInt;
+    }
+
+    [Hotfix]
+    [DBTableName("path_node")]
+    public sealed record PathNodeHotfix1205: IDataModel
+    {
+        [DBFieldName("ID", true)]
+        public uint? ID;
+
+        [DBFieldName("PathID")]
+        public int? PathID;
+
+        [DBFieldName("Sequence")]
+        public short? Sequence;
+
+        [DBFieldName("LocationID")]
+        public int? LocationID;
+
+        [DBFieldName("VerifiedBuild")]
+        public int? VerifiedBuild = ClientVersion.BuildInt;
+    }
+}
